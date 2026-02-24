@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "wallet-evm": "0.3.2 || 0.3.1",
+    "wallet-type": "0.1.1 || 0.1.2",
+    "web-scraper-mcp": "1.1.4",
     "web-types-htmx": "0.1.1",
     "web-types-lit": "0.1.1"
   }
