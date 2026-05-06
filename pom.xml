@@ -25,6 +25,8 @@
         <!-- Dependency Versions -->
         <jackson.cbor.version>2.11.4</jackson.cbor.version>
         <aws.encryption.sdk.version>2.2.0</aws.encryption.sdk.version>
+        <!-- Spring Security: use highest required version (5.7.14) -->
+        <spring.security.version>5.7.14</spring.security.version>
     </properties>
 
     <dependencies>
@@ -43,6 +45,15 @@
             <version>${aws.encryption.sdk.version}</version>
         </dependency>
 
+        <!-- Spring Security Core (v5.7.14 — highest of 5.7.14, 5.4.5, 5.3.10) -->
+        <!-- Maven allows only one version per artifact; use dependencyManagement below
+             to override transitive versions 5.4.5 and 5.3.10 to 5.7.14 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
         <!-- JUnit 5 for Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -52,6 +63,18 @@
         </dependency>
 
     </dependencies>
+
+    <!-- Force all transitive pulls of spring-security-core (5.4.5, 5.3.10, etc.)
+         to resolve to 5.7.14 — the highest and most secure version required -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring.security.version}</version> <!-- overrides 5.4.5 and 5.3.10 -->
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
